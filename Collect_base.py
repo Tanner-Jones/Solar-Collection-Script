@@ -83,8 +83,8 @@ with open(filename,'w') as csvfile:
     filewriter = csv.DictWriter(csvfile, outputKeys)
     filewriter.writeheader()
     while True:
+        start_time = time.time()
         #if time.time() > timeout:
-        time.sleep(sampleRate)
         #current_diff = chan2.voltage*a - chan6.voltage*a
         Outputs = {
             'Time' : time.strftime("%m:%d-%H:%M:%S"),
@@ -108,6 +108,9 @@ with open(filename,'w') as csvfile:
         if time.time() > timeout:
             print("Time's up!")
             break
+        
+        time.sleep(sampleRate - ((time.time() - start_time) % sampleRate)
+
 
 #plot csv values across figures
 
