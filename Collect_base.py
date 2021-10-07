@@ -109,7 +109,7 @@ with open(filename,'w') as csvfile:
             print("Time's up!")
             break
         
-        time.sleep(sampleRate - ((time.time() - start_time) % sampleRate)
+        time.sleep(sampleRate - ((time.time() - start_time) % sampleRate))
 
 
 #plot csv values across figures
