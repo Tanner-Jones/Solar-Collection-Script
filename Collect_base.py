@@ -62,9 +62,9 @@ def get_pyra(chanNum):
         value = math.nan
     return value
 
-def get_voltage(chanNum):
+def get_voltage(chanNum, factor):
     try:
-        value = (chanNum.voltage)*v
+        value = (chanNum.voltage)*factor
     except OSError:
         value = math.nan
     return value
@@ -75,6 +75,7 @@ def get_current(chanNum):
     except OSError:
         value = math.nan
     return value
+
 def pyra_wait(chanNum):
     current_time = time.strftime("%M%S")
     if (int(current_time[0:2]) % 5 == 0 and int(current_time[2:]) < sampleRate):
@@ -93,11 +94,11 @@ with open(filename,'w') as csvfile:
         #current_diff = chan2.voltage*a - chan6.voltage*a
         Outputs = {
             'Time' : time.strftime("%m:%d-%H:%M:%S"),
-            'SCV1': get_voltage(chan1),
+            'SCV1': get_voltage(chan1, v),
             'SCC2': get_current(chan2),
-            'PVV3': (chan3.voltage)*v,
-            'PVC4': (chan4.voltage)*a,
-            'LOADV5': get_voltage(chan5),
+            'PVV3': get_voltage(chan3, v_solar),
+            'PVC4': get_current(chan4)
+            'LOADV5': get_voltage(chan5, v),
             'LOADC6': get_current(chan6),
             'PYRA': pyra_wait(chan8)
         }
